@@ -2,28 +2,27 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>老杨TV · 官方导航首页</title>
     <style>
         /* ====================================================================
-           🌟 严格遵照鱼壳 2026 官方指南特调的电视大屏自适应安全防线
+           🌟 严格遵循鱼壳 2026 基线标准特调（全向 ES2017 语法安全红线防崩）
            ==================================================================== */
         html, body {
-            background-color: #0b0b0e;
+            background-color: #0d0d11;
             color: #e2e8f0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
-            /* 使用官方高度变量规避视口偏差 */
-            min-height: var(--fm-web-height, 100vh); 
+            padding: 0;
             box-sizing: border-box;
         }
 
+        /* 初始给一个非常宽裕的手机/TV通用盲盲留白，确保开机第一秒绝对不遮挡菜单 */
         body {
-            /* 核心修复：运用 max() 融合 Native 注入的顶部安全区，强行将内容下沉，100% 露出原生菜单 */
-            padding-top: calc(40px + max(var(--fm-safe-top, 0px), env(safe-area-inset-top, 0px)));
-            padding-left: calc(30px + max(var(--fm-safe-left, 0px), env(safe-area-inset-left, 0px)));
-            padding-right: calc(30px + max(var(--fm-safe-right, 0px), env(safe-area-inset-right, 0px)));
-            padding-bottom: calc(40px + max(var(--fm-safe-bottom, 0px), env(safe-area-inset-bottom, 0px)));
+            padding-top: 75px; 
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -32,14 +31,15 @@
         .container {
             max-width: 850px;
             width: 100%;
-            background: linear-gradient(145deg, #121218, #181822);
+            background: linear-gradient(145deg, #13131a, #1c1c24);
             border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
-            border: 1px solid #252535;
+            padding: 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid #2d2d3d;
+            box-sizing: border-box;
         }
 
-        /* 顶部高亮切线指引卡片 */
+        /* 顶部强烈切线指引 */
         .marquee-box {
             background: linear-gradient(90deg, #ff4e50, #f9d423);
             color: #000000;
@@ -48,16 +48,9 @@
             text-align: center;
             font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.25);
             letter-spacing: 1px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.01); }
-            100% { transform: scale(1); }
         }
 
         h2 {
@@ -65,7 +58,6 @@
             text-align: center;
             margin: 0 0 10px 0;
             color: #38bdf8;
-            letter-spacing: 1px;
         }
 
         .subtitle {
@@ -73,10 +65,10 @@
             color: #94a3b8;
             font-size: 1rem;
             margin-bottom: 25px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* 大佬致谢双列布局 */
+        /* 致谢大卡片组 */
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -93,6 +85,7 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 14px;
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .card-title {
@@ -101,21 +94,16 @@
             margin-bottom: 12px;
         }
 
-        .fish-color { color: #38bdf8; }
-        .dolphin-color { color: #2dd4bf; }
+        .fish-title { color: #38bdf8; }
+        .dolphin-title { color: #2dd4bf; }
 
         .card-content {
             font-size: 0.95rem;
             color: #cbd5e1;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
-        .card-content strong {
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        /* 割韭菜强效警告框 */
+        /* 割韭菜警告框 */
         .danger-box {
             background: rgba(239, 68, 68, 0.08);
             border: 1px solid rgba(239, 68, 68, 0.25);
@@ -129,45 +117,41 @@
             color: #f87171;
             font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .danger-text {
             font-size: 1rem;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #f1f5f9;
         }
 
-        /* 免责声明沉稳板块 */
+        /* 免责声明 */
         .statement-box {
-            background: #0f0f15;
+            background: #181824;
             border-radius: 14px;
             padding: 22px;
-            border: 1px solid #1f1f2d;
+            border: 1px solid #2a2a3a;
         }
 
         .statement-title {
             color: #f1f5f9;
             font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #222232;
-            padding-bottom: 8px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #2d2d3d;
+            padding-bottom: 10px;
         }
 
         .statement-item {
             font-size: 0.9rem;
             color: #94a3b8;
-            line-height: 1.7;
+            line-height: 1.8;
             margin-bottom: 12px;
         }
 
         .statement-item:last-child {
             margin-bottom: 0;
-        }
-
-        .statement-item strong {
-            color: #cbd5e1;
         }
     </style>
 </head>
@@ -184,20 +168,20 @@
 
     <div class="grid">
         <div class="card">
-            <div class="card-title fish-color">🐋 感谢鱼佬的付出</div>
+            <div class="card-title fish-title">🐋 感谢鱼佬的付出</div>
             <div class="card-content">
-                <strong>源码基础与发布主页:</strong> fish2018/webhtv<br>
-                <strong>版本发布绝对地址:</strong> fish2018/webhtv/releases<br>
-                <strong>Telegram 官方群组:</strong> 👉 https://t.me/webhtv
+                源码基础与发布主页: fish2018/webhtv<br>
+                版本发布绝对地址: fish2018/webhtv/releases<br>
+                Telegram 官方群组: 👉 https://t.me/webhtv
             </div>
         </div>
 
         <div class="card">
-            <div class="card-title dolphin-color">🐬 感谢海豚佬的付出</div>
+            <div class="card-title dolphin-title">🐬 感谢海豚佬的付出</div>
             <div class="card-content">
-                <strong>核心仓库主页:</strong> FGBLH/GHK<br>
-                <strong>数据源直链地址:</strong> FGBLH/GHK/海豚.json<br>
-                <strong>Telegram 官方群组:</strong> 👉 https://t.me/hshsjk9
+                核心仓库主页: FGBLH/GHK<br>
+                数据源直链地址: FGBLH/GHK/海豚.json<br>
+                Telegram 官方群组: 👉 https://t.me/hshsjk9
             </div>
         </div>
     </div>
@@ -206,7 +190,7 @@
         <div class="danger-title">🚨 【超级防骗防割警告】</div>
         <div class="danger-text">
             本接口完全免费！本人仅将两位大佬的优质接口在云端进行了融合优化，纯属自用方便。如果你是花钱买来的，请立刻联系卖家退款举报！<br>
-            <span style="color: #fbbf24; font-weight: bold; display: inline-block; margin-top: 6px;">📢 欢迎关注官方专属 Telegram 频道:</span> https://t.me/huliyings
+            <span style="color: #fbbf24; font-weight: bold; display: inline-block; margin-top: 8px;">📢 欢迎关注官方专属 Telegram 频道:</span> https://t.me/huliyings
         </div>
     </div>
 
@@ -228,6 +212,36 @@
     </div>
 
 </div>
+
+<script>
+    function updateSafePadding() {
+        // 实时读取根节点被注入的最新系统栏/菜单高度变量
+        var style = window.getComputedStyle(document.documentElement);
+        var safeTop = style.getPropertyValue('--fm-safe-top').trim();
+        var safeLeft = style.getPropertyValue('--fm-safe-left').trim();
+        var safeRight = style.getPropertyValue('--fm-safe-right').trim();
+        var safeBottom = style.getPropertyValue('--fm-safe-bottom').trim();
+
+        // 只要盒子吐出了真实高度数值，立刻纠正覆盖 body 间距
+        if (safeTop && safeTop !== "0px") {
+            document.body.style.paddingTop = "calc(25px + " + safeTop + ")";
+        }
+        if (safeLeft && safeLeft !== "0px") document.body.style.paddingLeft = "calc(20px + " + safeLeft + ")";
+        if (safeRight && safeRight !== "0px") document.body.style.paddingRight = "calc(20px + " + safeRight + ")";
+        if (safeBottom && safeBottom !== "0px") document.body.style.paddingBottom = "calc(30px + " + safeBottom + ")";
+    }
+
+    [span_3](start_span)[span_4](start_span)// 1. 挂载官方规定的视口与布局异动大网[span_3](end_span)[span_4](end_span)
+    window.addEventListener("fmviewport", updateSafePadding);
+    
+    [span_5](start_span)[span_6](start_span)// 2. 挂载 SDK 完成信号及常规加载完成事件作为双保险[span_5](end_span)[span_6](end_span)
+    window.addEventListener("fmsdk", updateSafePadding);
+    document.addEventListener("DOMContentLoaded", updateSafePadding);
+    
+    // 3. 执行初次雷达扫描
+    setTimeout(updateSafePadding, 100);
+    setTimeout(updateSafePadding, 500); [span_7](start_span)// 兜底老设备异步渲染延迟[span_7](end_span)
+</script>
 
 </body>
 </html>
