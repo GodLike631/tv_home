@@ -6,7 +6,7 @@
     <title>老杨TV · 官方导航首页</title>
     <style>
         /* ====================================================================
-           🌟 严格遵循鱼壳 2026 基线标准特调（全向 ES2017 语法安全红线防崩）
+           🌟 严格遵循鱼壳 2026 兼容红线特调（CSS 双层宣告避雷法）
            ==================================================================== */
         html, body {
             background-color: #0d0d11;
@@ -17,12 +17,19 @@
             box-sizing: border-box;
         }
 
-        /* 初始给一个非常宽裕的手机/TV通用盲盲留白，确保开机第一秒绝对不遮挡菜单 */
         body {
-            padding-top: 75px; 
+            /* 1. 基础兜底留白：先写死 90px，老盒子或不支持变量的内核会认这一行，死活不会遮挡顶部 */
+            padding-top: 90px;
             padding-left: 20px;
             padding-right: 20px;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
+            
+            /* 2. 现代值覆盖：如果是支持原厂变量的新内核，会读取下面这一行，融合软件安全区进一步往下推 */
+            padding-top: calc(90px + var(--fm-safe-top, 0px));
+            padding-left: calc(20px + var(--fm-safe-left, 0px));
+            padding-right: calc(20px + var(--fm-safe-right, 0px));
+            padding-bottom: calc(40px + var(--fm-safe-bottom, 0px));
+            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,7 +46,7 @@
             box-sizing: border-box;
         }
 
-        /* 顶部强烈切线指引 */
+        /* 顶部高亮切线箱 */
         .marquee-box {
             background: linear-gradient(90deg, #ff4e50, #f9d423);
             color: #000000;
@@ -68,7 +75,7 @@
             line-height: 1.6;
         }
 
-        /* 致谢大卡片组 */
+        /* 大佬致谢卡片组 */
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -103,7 +110,7 @@
             line-height: 1.8;
         }
 
-        /* 割韭菜警告框 */
+        /* 防割警告框 */
         .danger-box {
             background: rgba(239, 68, 68, 0.08);
             border: 1px solid rgba(239, 68, 68, 0.25);
@@ -212,36 +219,6 @@
     </div>
 
 </div>
-
-<script>
-    function updateSafePadding() {
-        // 实时读取根节点被注入的最新系统栏/菜单高度变量
-        var style = window.getComputedStyle(document.documentElement);
-        var safeTop = style.getPropertyValue('--fm-safe-top').trim();
-        var safeLeft = style.getPropertyValue('--fm-safe-left').trim();
-        var safeRight = style.getPropertyValue('--fm-safe-right').trim();
-        var safeBottom = style.getPropertyValue('--fm-safe-bottom').trim();
-
-        // 只要盒子吐出了真实高度数值，立刻纠正覆盖 body 间距
-        if (safeTop && safeTop !== "0px") {
-            document.body.style.paddingTop = "calc(25px + " + safeTop + ")";
-        }
-        if (safeLeft && safeLeft !== "0px") document.body.style.paddingLeft = "calc(20px + " + safeLeft + ")";
-        if (safeRight && safeRight !== "0px") document.body.style.paddingRight = "calc(20px + " + safeRight + ")";
-        if (safeBottom && safeBottom !== "0px") document.body.style.paddingBottom = "calc(30px + " + safeBottom + ")";
-    }
-
-    [span_3](start_span)[span_4](start_span)// 1. 挂载官方规定的视口与布局异动大网[span_3](end_span)[span_4](end_span)
-    window.addEventListener("fmviewport", updateSafePadding);
-    
-    [span_5](start_span)[span_6](start_span)// 2. 挂载 SDK 完成信号及常规加载完成事件作为双保险[span_5](end_span)[span_6](end_span)
-    window.addEventListener("fmsdk", updateSafePadding);
-    document.addEventListener("DOMContentLoaded", updateSafePadding);
-    
-    // 3. 执行初次雷达扫描
-    setTimeout(updateSafePadding, 100);
-    setTimeout(updateSafePadding, 500); [span_7](start_span)// 兜底老设备异步渲染延迟[span_7](end_span)
-</script>
 
 </body>
 </html>
