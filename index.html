@@ -6,7 +6,7 @@
     <title>老杨TV · 官方导航首页</title>
     <style>
         /* ====================================================================
-           🌟 严格遵循鱼壳 2026 兼容红线特调（CSS 双层宣告避雷法）
+           🌟 严格遵循鱼壳 2026 兼容红线与安全区特调
            ==================================================================== */
         html, body {
             background-color: #0d0d11;
@@ -18,18 +18,11 @@
         }
 
         body {
-            /* 1. 基础兜底留白：先写死 90px，老盒子或不支持变量的内核会认这一行，死活不会遮挡顶部 */
-            padding-top: 90px;
-            padding-left: 20px;
-            padding-right: 20px;
-            padding-bottom: 40px;
-            
-            /* 2. 现代值覆盖：如果是支持原厂变量的新内核，会读取下面这一行，融合软件安全区进一步往下推 */
-            padding-top: calc(90px + var(--fm-safe-top, 0px));
+            /* 预留出顶部原生菜单的高度 */
+            padding-top: calc(80px + var(--fm-safe-top, 0px));
             padding-left: calc(20px + var(--fm-safe-left, 0px));
             padding-right: calc(20px + var(--fm-safe-right, 0px));
             padding-bottom: calc(40px + var(--fm-safe-bottom, 0px));
-            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,16 +37,41 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
             border: 1px solid #2d2d3d;
             box-sizing: border-box;
+            position: relative;
         }
 
-        /* 顶部高亮切线箱 */
+        /* 🌟 原厂特调：悬浮交互按钮（退出全屏/返回菜单） */
+        .exit-btn {
+            background: linear-gradient(135deg, #00e5ff, #0097a7);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+            margin-bottom: 25px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .exit-btn:focus, .exit-btn:hover {
+            outline: 3px solid #ff9800;
+            background: linear-gradient(135deg, #ff9800, #e65100);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+        }
+
+        /* 顶部强烈切线指引 */
         .marquee-box {
             background: linear-gradient(90deg, #ff4e50, #f9d423);
             color: #000000;
             padding: 16px;
             border-radius: 12px;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             margin-bottom: 25px;
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.25);
@@ -166,6 +184,8 @@
 
 <div class="container">
     
+    <button class="exit-btn" id="exitBtn" tabindex="0" onclick="handleExit()">进入软件 / 切换线路 (遥控器按OK键)</button>
+
     <div class="marquee-box">
         👉 点击右上角切换线路，即可正常观看
     </div>
@@ -211,7 +231,7 @@
             <strong>2. 内容说明：</strong>项目本身作为云端自动化数据缝合中转站，不存储、不分发、不制作任何影视及直播流媒体视频内容。所有接口内展示的数据，均源自网络公开可获取的数据源进行自动化整理与聚合。
         </div>
         <div class="statement-item">
-            <strong>3. 版权归属：</strong>所有涉及的影视资源、直播源及软件品牌版权均归原作者、原厂官仓及相关合法平台所有。
+            <strong>3. 版权归属：</strong>所有涉及的影视资源、直播源及软件品牌版权均归原作者、原厂官仓及合法平台所有。
         </div>
         <div class="statement-item">
             <strong>4. 版权处理：</strong>若相关资源涉及版权或其他侵权问题，请联系上游源头资源提供方或版权方进行删除处理。本自动同步仓库在收到通知后，会积极配合在 24 小时内移除相关缓存索引。
@@ -219,6 +239,49 @@
     </div>
 
 </div>
+
+<script>
+    // 退出网页交还控制权的核心逻辑
+    function handleExit() {
+        if (window.fm && typeof window.fm.back === "function") {
+            window.fm.back(); // 强制触发软件原生的返回/切换菜单动作
+        } else {
+            // 兜底方案：如果是手机浏览器测试，直接弹窗提示
+            alert("请在电视盒子里点击右上角或使用遥控器返回键切换线路！");
+        }
+    }
+
+    // 监听遥控器 Enter / OK 键 (键码 13 和部分盒子的 23)
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.keyCode === 13 || event.keyCode === 23) {
+            var activeEl = document.activeElement;
+            if (activeEl && activeEl.id === "exitBtn") {
+                handleExit();
+            }
+        }
+    });
+
+    // 强制鱼壳拉出原生 Edge 导航菜单栏，拒绝全屏遮挡
+    function forceMenuVisible() {
+        if (window.fm && window.fm.ui && typeof window.fm.ui.setChrome === "function") {
+            window.fm.ui.setChrome({ mode: "edge" });
+        }
+    }
+
+    // 挂载原厂事件网，多重保险强行重夺菜单控制权
+    window.addEventListener("fmsdk", function() {
+        forceMenuVisible();
+    });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        // 自动将焦点锁定在“进入软件”的按钮上，方便遥控器直接按OK键
+        var btn = document.getElementById("exitBtn");
+        if (btn) btn.focus();
+        
+        setTimeout(forceMenuVisible, 300);
+        setTimeout(forceMenuVisible, 800);
+    });
+</script>
 
 </body>
 </html>
