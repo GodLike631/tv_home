@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老杨TV · 官方导航首页</title>
+    <style>
+        /* 电视大屏专属暗黑高科技微光风格 */
+        body {
+            background-color: #0d0d11;
+            color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: linear-gradient(145deg, #13131a, #1c1c24);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid #2d2d3d;
+        }
+
+        /* 顶部强烈滚屏切线提示 */
+        .marquee-box {
+            background: linear-gradient(90deg, #ff4e50, #f9d423);
+            color: #000000;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 35px;
+            box-shadow: 0 6px 20px rgba(255, 78, 80, 0.3);
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* 大佬致谢卡片 */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fish-title { color: #38bdf8; }
+        .dolphin-title { color: #2dd4bf; }
+
+        .card-content {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .card-content strong {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .tg-link {
+            display: inline-block;
+            background: #229ed9;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* 割韭菜警告框 */
+        .danger-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-left: 6px solid #ef4444;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+        }
+
+        .danger-title {
+            color: #f87171;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .danger-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #f1f5f9;
+        }
+
+        /* 免责声明区域 */
+        .statement-box {
+            background: #181824;
+            border-radius: 14px;
+            padding: 25px;
+            border: 1px solid #2a2a3a;
+        }
+
+        .statement-title {
+            color: #f1f5f9;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #2d2d3d;
+            padding-bottom: 10px;
+        }
+
+        .statement-item {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .statement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .statement-item strong {
+            color: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="marquee-box">
+        👉 点击右上角切换线路，即可正常观看 👈
+    </div>
+
+    <h2 class="fish-title">👑 特别致谢与版权声明</h2>
+    <div class="subtitle">本接口的诞生离不开大后方两位业内顶流技术大佬的无私奉献，特此致谢：</div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-title fish-title">🐋 感谢鱼佬的付出</div>
+            <div class="card-content">
+                <strong>源码基础与发布主页:</strong> fish2018/webhtv<br>
+                <strong>版本发布绝对地址:</strong> fish2018/webhtv/releases<br>
+                <strong>Telegram 官方群组:</strong> <a class="tg-link" href="https://t.me/webhtv" target="_blank">👉 点击加入群组</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title dolphin-title">🐬 感谢海豚佬的付出</div>
+            <div class="card-content">
+                <strong>核心仓库主页:</strong> FGBLH/GHK<br>
+                <strong>数据源直链地址:</strong> FGBLH/GHK/海豚.json<br>
+                <strong>Telegram 官方群组:</strong> <a class="tg-link" href="https://t.me/hshsjk9" target="_blank">👉 点击加入群组</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="danger-box">
+        <div class="danger-title">🚨 【超级防骗防割警告】</div>
+        <div class="danger-text">
+            本接口完全免费！本人仅将两位大佬的优质接口在云端进行了融合优化，纯属自用方便。如果你是花钱买来的，请立刻联系卖家退款举报！<br>
+            <span style="color: #fbbf24; font-weight: bold; display: inline-block; margin-top: 8px;">📢 欢迎关注官方专属 Telegram 频道:</span> 
+            <a href="https://t.me/huliyings" target="_blank" style="color: #fbbf24; font-weight: bold;">https://t.me/huliyings</a>
+        </div>
+    </div>
+
+    <div class="statement-box">
+        <div class="statement-title">⚠️ 免责声明</div>
+        
+        <div class="statement-item">
+            <strong>1. 项目性质：</strong>本项目仅用于技术研究、自动化脚本测试与学术学习交流，严禁用于任何商业营利性用途。
+        </div>
+        <div class="statement-item">
+            <strong>2. 内容说明：</strong>项目本身作为云端自动化数据缝合中转站，不存储、不分发、不制作任何影视及直播流媒体视频内容。所有接口内展示的数据，均源自网络公开可获取的数据源进行自动化整理与聚合。
+        </div>
+        <div class="statement-item">
+            <strong>3. 版权归属：</strong>所有涉及的影视资源、直播源及软件品牌版权均归原作者、原厂官仓及相关合法平台所有。
+        </div>
+        <div class="statement-item">
+            <strong>4. 版权处理：</strong>若相关资源涉及版权或其他侵权问题，请联系上游源头资源提供方或版权方进行删除处理。本自动同步仓库在收到通知后，会积极配合在 24 小时内移除相关缓存索引。
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
